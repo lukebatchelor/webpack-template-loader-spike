@@ -1,0 +1,10 @@
+const fs = require('fs');
+const path = require('path');
+
+const files = fs.readdirSync(path.join(__dirname, '..', 'components'))
+
+newContent = `import dynamic from 'next/dynamic';
+  export const components = [
+    ${files.map(file => `  dynamic(() => import("../components/${file}"))`).join(',\n')}
+  ];
+`;
